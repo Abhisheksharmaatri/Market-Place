@@ -1,0 +1,171 @@
+/* ===============================
+   Products Page Layout
+================================ */
+
+.product-container {
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+/* Page heading */
+.product-container h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #1f2937;
+}
+
+/* ===============================
+   Create Product Card
+================================ */
+
+.product-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+/* Card title */
+.product-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 16px;
+}
+
+/* ===============================
+   Product Create / Update Form
+   (reuses Orders form styles)
+================================ */
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.product-form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Inputs aligned with Orders */
+.product-label {
+  font-size: 12px;
+  margin-bottom: 4px;
+  color: #555;
+}
+
+.product-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.product-input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* Submit button – same feel as Orders */
+.product-submit-btn {
+  margin-top: 6px;
+  padding: 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.product-submit-btn:hover {
+  background-color: #218838;
+}
+
+/* ===============================
+   Product List Grid
+================================ */
+
+.product-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* ===============================
+   Product List Card
+================================ */
+
+.product-card-body {
+  margin-bottom: 10px;
+}
+
+.product-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #111827;
+}
+
+.product-description {
+  font-size: 0.85rem;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+/* Action link matches Orders buttons */
+.product-action-link {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.product-action-link:hover {
+  text-decoration: underline;
+}
+
+/* ===============================
+   Single Product Page
+   (reuses Orders single-page layout)
+================================ */
+
+.product-meta {
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f9f9f9;
+  padding-bottom: 15px;
+}
+
+.product-meta p {
+  margin: 4px 0;
+  font-size: 0.9rem;
+}
+
+/* Update section styled like Orders create section */
+.product-update-section {
+  background: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.product-update-section h3 {
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+  color: #374151;
+}
+
+/* Delete button reuses Orders destructive action */
+.btn-delete-order {
+  margin-top: 20px;
+}

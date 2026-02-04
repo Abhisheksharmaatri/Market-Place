@@ -1,0 +1,272 @@
+/* ===============================
+   Shared / Utility
+================================ */
+
+.error-box {
+  background: #ffe5e5;
+  color: #b00020;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+/* ===============================
+   Orders Page Layout
+================================ */
+
+.orders-container {
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+.orders-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ===============================
+   Compact Order Card (List Page)
+================================ */
+
+.order-card.compact {
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+}
+
+/* Top row: Order ID + User */
+.order-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+/* Middle: Order items */
+.order-items {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 6px 0;
+  margin: 6px 0;
+}
+
+.order-items-header {
+  display: grid;
+  grid-template-columns: 1fr 60px 80px 110px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #777;
+  padding-bottom: 4px;
+}
+
+.order-item-row {
+  display: grid;
+  grid-template-columns: 1fr 60px 80px 110px;
+  gap: 6px;
+  font-size: 0.85rem;
+  padding: 3px 0;
+}
+
+.product-name {
+  font-weight: 500;
+}
+
+.product-qty {
+  text-align: center;
+  opacity: 0.8;
+}
+
+.product-price {
+  text-align: right;
+  font-weight: 600;
+}
+
+.product-effective-price {
+  text-align: right;
+  font-weight: 700;
+  color: #111827;
+}
+
+
+/* Bottom: Total + Action */
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.order-total {
+  font-size: 0.9rem;
+}
+
+.order-action-btn {
+  padding: 4px 10px;
+  background: #007bff;
+  color: white;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+.order-action-btn:hover {
+  background: #0056b3;
+}
+
+/* ===============================
+   Create Order Section (Orders Page)
+================================ */
+
+.create-order-section {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  margin-top: 30px;
+}
+
+.form-row {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-group-product {
+  flex: 2;
+}
+
+.input-group-qty {
+  flex: 1;
+}
+
+.input-label {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* Buttons */
+.btn-remove {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.btn-add {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-add:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.btn-submit:hover {
+  background-color: #218838;
+}
+
+/* ===============================
+   Single Order Page
+================================ */
+
+.single-order-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.order-header-title {
+  color: #555;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.order-info-block {
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f9f9f9;
+  padding-bottom: 15px;
+}
+
+.item-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px dashed #ddd;
+}
+
+.item-details p {
+  margin: 2px 0;
+}
+
+.total-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 15px;
+  background: #f8fff9;
+  border: 1px solid #d4edda;
+  border-radius: 8px;
+  font-size: 1.2rem;
+}
+
+.btn-delete-order {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.btn-delete-order:hover {
+  background-color: #c82333;
+}
