@@ -52,4 +52,10 @@ public class ProductController {
     ){
         return productService.Get(id);
     }
+
+    @GetMapping("/status")
+    @ResponseStatus(HttpStatus.OK)
+    public String Status(){
+        return "Running";
+    }
 }
