@@ -14,7 +14,7 @@ COPY api-gateway api-gateway
 
 
 RUN ls -la /app
-RUN mvn -X -pl api-gateway -am clean package -DskipTests
+RUN mvn -pl api-gateway -am clean package -DskipTests
 
 FROM eclipse-temurin:17-jre
 WORKDIR /app

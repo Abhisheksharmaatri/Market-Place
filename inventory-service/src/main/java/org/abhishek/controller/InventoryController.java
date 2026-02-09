@@ -69,4 +69,10 @@ public class InventoryController {
     ){
         return inventoryService.Get(productId);
     }
+
+    @GetMapping("/status")
+    @ResponseStatus(HttpStatus.OK)
+    public String Status(){
+        return "Running";
+    }
 }

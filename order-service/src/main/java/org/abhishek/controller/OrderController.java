@@ -42,4 +42,10 @@ public class OrderController {
     ){
         return orderService.Get(id);
     }
+
+    @GetMapping("/status")
+    @ResponseStatus(HttpStatus.OK)
+    public String Status(){
+        return "Running";
+    }
 }
