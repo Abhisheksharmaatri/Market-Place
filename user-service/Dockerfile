@@ -14,7 +14,7 @@ COPY order-service ./order-service
 COPY api-gateway ./api-gateway
 
 # Build only user-service (but validate full reactor)
-RUN mvn -pl user-service -am clean package -DskipTests
+RUN mvn -pl ./user-service -am clean package -DskipTests
 
 # ---------- Runtime stage ----------
 FROM eclipse-temurin:17-jre
