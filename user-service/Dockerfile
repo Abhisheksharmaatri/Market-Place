@@ -12,6 +12,8 @@ COPY inventory-service inventory-service
 COPY order-service order-service
 COPY api-gateway api-gateway
 
+
+RUN ls -la /app
 RUN mvn -X -pl user-service -am clean package -DskipTests
 
 FROM eclipse-temurin:17-jre
