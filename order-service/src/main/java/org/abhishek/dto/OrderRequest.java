@@ -14,5 +14,4 @@ import java.util.List;
 @Data
 public class OrderRequest {
     private List<ProductRequestItem> productList;
-    private String userId;
 }

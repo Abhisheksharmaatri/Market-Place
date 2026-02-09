@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createInventory, getInventory } from "../../api/inventoryApi";
 import { Link } from "react-router-dom";
 import { getAllProducts } from "../../api/productApi";
+import CreateInventoryCard from "../../components/inventory/CreateInventoryCard";
 
 export default function InventoryPage() {
   const [items, setItems] = useState([]); 
@@ -67,6 +68,17 @@ export default function InventoryPage() {
       </ul>
 
       <hr />
+      <CreateInventoryCard
+        availableProducts={availableProducts}
+        productListLength={productList.length}
+        productId={productId}
+        setProductId={setProductId}
+        price={price}
+        setPrice={setPrice}
+        amount={amount}
+        setAmount={setAmount}
+        onSubmit={handleSubmit}
+      />
 
       
     </div>

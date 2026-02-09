@@ -7,6 +7,8 @@ import SingleProductPage from "./pages/product/SingleProductPage";
 import SingleInventoryPage from "./pages/inventory/SingleInventoryPage";
 import SingleOrderPage from "./pages/order/SingleOrderPage";
 import NavBar from "./components/NavBar";
+import LoginPage from "./components/Login/LoginPage";
+import SignUp from "./components/Login/SignUp";
 
 export default function App() {
 
@@ -23,6 +25,8 @@ export default function App() {
         <Route path="/inventory/:id" element={<SingleInventoryPage />} />
         <Route path="/orders" element={<OrdersPage />} />
         <Route path="/orders/:id" element={<SingleOrderPage />} />
+        <Route path="/login" element={<LoginPage/>}/>
+        <Route path="/signup" element={<SignUp/>}/>
       </Routes>
     </BrowserRouter>
   );

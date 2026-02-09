@@ -1,0 +1,6 @@
+Product:
+mongodb+srv://alexwolfdog:alexwolfdog@product.prf7sep.mongodb.net/Product?authSource=admin&retryWrites=true&w=majority&appName=Product
+
+
+User:
+spring.data.mongodb.uri=mongodb+srv://alexwolfdog:alexwolfdog@user.nddftuc.mongodb.net/User?authSource=admin&retryWrites=true&w=majority&appName=User

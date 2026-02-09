@@ -33,7 +33,7 @@ public class OrderService {
     private final WebClient.Builder webClientBuilder;
 
     @Transactional
-    public void Create(OrderRequest orderRequest){
+    public void Create(OrderRequest orderRequest, String userId){
         List<OrderItem> orderItemList=new ArrayList<>();
         log.info("Starting the service.");
         try{
@@ -111,7 +111,7 @@ public class OrderService {
                     .builder()
                     .orderItemList(savedOrderItemList.getId())
                     .total(total)
-                    .userId(orderRequest.getUserId())
+                    .userId(userId)
                     .build();
             orderRepository.save(order);
             log.info("ending the service");

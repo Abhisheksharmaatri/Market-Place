@@ -49,4 +49,11 @@ We are goinf to make orderservice in mongodb
 
 API Gateway appplication is running on port 8080
 
+User Service: 8085
+Login and registeration of user servcies are runnig fine and all routes except login and register are protected.
+
+Implement the system on frontend.
+
+Need to overhaul the frontend part completely on the same model as https://github.com/Abhisheksharmaatri/Collaborative-Code-Editor/blob/master/frontend/src/pages/Home.js
+
 

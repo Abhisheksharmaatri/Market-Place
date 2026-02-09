@@ -3,60 +3,146 @@ import axios from "axios";
 import SERVICE_URLS from "./config";
 
 export const getAllProducts = async () => {
-  const response = await axios.get(
-    `${SERVICE_URLS.product}/product`
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/login";
+    return;
+  }
+
+  const response = await fetch(
+    `${SERVICE_URLS.product}/product`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
-  return response.data;
+
+  if (response.status === 401) {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+    return;
+  }
+
+  return await response.json();
 };
 
 
 export const createProduct = async (product) => {
-  const response = await axios.post(
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/login";
+    return;
+  }
+
+  const response = await fetch(
     `${SERVICE_URLS.product}/product`,
-    product
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(product),
+    }
   );
-  return response.data;
+
+  if (response.status === 401) {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+    return;
+  }
+
+  return await response.json();
 };
+
 
 
 export const updateProduct = async (product, id) => {
-  const response = await axios.put(
-    `${SERVICE_URLS.product}/product`,
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/login";
+    return;
+  }
+
+  const response = await fetch(
+    `${SERVICE_URLS.product}/product?id=${Number(id)}`,
     {
-      name: product.name,
-      description: product.description
-    },
-    {
-      params: { id },
+      method: "PUT",
       headers: {
-        "Content-Type": "application/json" // IMPORTANT
-      }
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: product.name,
+        description: product.description,
+      }),
     }
   );
-  return response.data;
+
+  if (response.status === 401) {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+    return;
+  }
+
+  return await response.json();
 };
 
 
+export const deleteProduct = async (id) => {
+  const token = localStorage.getItem("token");
 
+  if (!token) {
+    window.location.href = "/login";
+    return;
+  }
 
-
-export const deleteProduct=async(id)=>{
-  const response=await axios.delete(
-    `${SERVICE_URLS.product}/product`,
+  const response = await fetch(
+    `${SERVICE_URLS.product}/product?id=${Number(id)}`,
     {
-      params:{id}
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
-  return response.data
-}
 
+  if (response.status === 401) {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+    return;
+  }
 
-export const getOneProduct=async(id)=>{
-  const response=await axios.get(
-    `${SERVICE_URLS.product}/product/item`,
+  return await response.json();
+};
+
+export const getOneProduct = async (id) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/login";
+    return;
+  }
+
+  const response = await fetch(
+    `${SERVICE_URLS.product}/product/item?id=${Number(id)}`,
     {
-      params:{id}
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
-  )
-  return response.data;
-}
+  );
+
+  if (response.status === 401) {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+    return;
+  }
+
+  return await response.json();
+};
+

@@ -38,3 +38,5 @@ build/
 ### Mac OS ###
 .DS_Store
 /Frontend/node_modules/
+
+App.txt

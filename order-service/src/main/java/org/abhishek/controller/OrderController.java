@@ -17,8 +17,10 @@ public class OrderController {
     private final OrderService orderService;
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void Create(@RequestBody OrderRequest orderRequest){
-        orderService.Create(orderRequest);
+    public void Create(@RequestBody OrderRequest orderRequest,
+                       @RequestHeader("X-User-Id") String userId,
+                       @RequestHeader("X-User-Role") String role){
+        orderService.Create(orderRequest, userId);
     }
 
     @DeleteMapping()

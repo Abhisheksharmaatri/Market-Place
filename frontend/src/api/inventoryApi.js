@@ -2,75 +2,185 @@ import axios from "axios";
 import SERVICE_URLS from "./config";
 
 export const getInventory = async () => {
-  const response = await axios.get(
-    `${SERVICE_URLS.inventory}/inventory`
+  const token = localStorage.getItem("token");
+
+  // 🔒 No token → go to login
+  if (!token) {
+    window.location.href = "/login";
+    return;
+  }
+
+  const response = await fetch(
+    `${SERVICE_URLS.inventory}/inventory`,
+    {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    }
   );
-  return response.data;
+
+  // 🔒 Token invalid / expired → logout
+  if (response.status === 401) {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+    return;
+  }
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch inventory");
+  }
+
+  return await response.json();
 };
 
 
-export const createInventory = async(inventory)=>{
-  const response=await axios.post(
+
+export const createInventory = async (inventory) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/login";
+    return;
+  }
+
+  const response = await fetch(
     `${SERVICE_URLS.inventory}/inventory`,
-    inventory
+    {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(inventory),
+    }
   );
-  return response.data;
-}
 
-export const updateInventory=async(inventory, id)=>{
-  
-  console.log("Data received in API helper:", inventory);
+  if (response.status === 401) {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+    return;
+  }
 
-  // Destructure to be 100% sure we are using the fresh values
+  return await response.json();
+};
+
+
+
+export const updateInventory = async (inventory, id) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/login";
+    return;
+  }
+
   const { productId, price, amount } = inventory;
 
-  console.log(price, amount)
-
-  const response = await axios.put(
-    `${SERVICE_URLS.inventory}/inventory`,
+  const response = await fetch(
+    `${SERVICE_URLS.inventory}/inventory?id=${Number(id)}`,
     {
-      productId, // Shorthand for productId: productId
-      price,     
-      amount
-    },
-    {
-      params: { id },
+      method: "PUT",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        productId,
+        price,
+        amount,
+      }),
     }
   );
-  return response.data;
-}
 
+  if (response.status === 401) {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+    return;
+  }
 
-export const deleteInventory=async(id)=>{
-  const response=await axios.delete(
-    `${SERVICE_URLS.inventory}/inventory`,
+  return await response.json();
+};
+
+export const deleteInventory = async (id) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/login";
+    return;
+  }
+
+  const response = await fetch(
+    `${SERVICE_URLS.inventory}/inventory?id=${Number(id)}`,
     {
-      params:{id}
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
     }
   );
-  return response.data;
-}
+
+  if (response.status === 401) {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+    return;
+  }
+
+  return await response.json();
+};
 
 
-export const getOneInventory=async(id)=>{
-  const response=await axios.get(
-    `${SERVICE_URLS.inventory}/inventory/item`,
+
+export const getOneInventory = async (id) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/login";
+    return;
+  }
+
+  const response = await fetch(
+    `${SERVICE_URLS.inventory}/inventory/item?id=${Number(id)}`,
     {
-      params:{id}
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
     }
   );
-  return response.data;
-}
 
-export const getOneInventoryByProductId=async(productId)=>{
-  const response=await axios.get(
-    `${SERVICE_URLS.inventory}/inventory/product`,
+  if (response.status === 401) {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+    return;
+  }
+
+  return await response.json();
+};
+
+
+export const getOneInventoryByProductId = async (productId) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/login";
+    return;
+  }
+
+  const response = await fetch(
+    `${SERVICE_URLS.inventory}/inventory/product?productId=${Number(productId)}`,
     {
-      params:{productId}
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
     }
   );
-  return response.data;
-}
+
+  if (response.status === 401) {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+    return;
+  }
+
+  return await response.json();
+};
+
