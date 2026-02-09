@@ -4,7 +4,7 @@ package org.abhishek.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.abhishek.config.AuthService;
+import org.abhishek.service.AuthService;
 import org.abhishek.dto.LoginRequest;
 import org.abhishek.dto.LoginResponse;
 import org.abhishek.dto.UserRequest;

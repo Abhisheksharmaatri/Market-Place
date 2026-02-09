@@ -1,5 +1,6 @@
-package org.abhishek.config;
+package org.abhishek.service;
 
+import org.abhishek.config.JwtUtil;
 import org.abhishek.dto.LoginRequest;
 import org.abhishek.model.User;
 import org.abhishek.repository.UserRepository;
