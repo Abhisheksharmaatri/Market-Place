@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.abhishek.dto.InventoryRequest;
 import org.abhishek.dto.InventoryResponse;
+import org.abhishek.dto.ProductResponse;
 import org.abhishek.exception.BadRequestException;
 import org.abhishek.exception.ConflictException;
 import org.abhishek.exception.DatabaseException;
@@ -17,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import java.util.List;
@@ -26,9 +28,23 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InventoryService {
     private final InventoryRepository inventoryRepository;
+    private final WebClient.Builder webClientBuilder;
 
     public void Create(InventoryRequest inventoryRequest){
         try{
+            ProductResponse productResponse=webClientBuilder.build()
+                    .get()
+                    .uri(
+                            uriBuilder -> uriBuilder
+                                    .scheme("https")
+                                    .host("market-place-product-o37u.onrender.com")
+                                    .path("/api/product/item")
+                                    .queryParam("id", inventoryRequest.getProductId()) // <-- IMPORTANT
+                                    .build()
+                    )
+                    .retrieve()
+                    .bodyToMono(ProductResponse.class)
+                    .block();
             Inventory inventory = mapFromRequest(inventoryRequest);
             Inventory savedInventory = inventoryRepository.save(inventory);
             log.info("Inventory with id: {} was saved", savedInventory.getId());
