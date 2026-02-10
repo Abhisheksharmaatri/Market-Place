@@ -17,9 +17,8 @@ public class SecurityConfig {
 
         http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
-                .cors(ServerHttpSecurity.CorsSpec::disable) // ✅ KEY FIX
+                .cors(ServerHttpSecurity.CorsSpec::disable) // Gateway handles CORS
                 .authorizeExchange(exchange -> exchange
-                        .pathMatchers("/eureka/**").permitAll()
                         .pathMatchers(HttpMethod.OPTIONS).permitAll()
                         .anyExchange().permitAll()
                 );
@@ -27,3 +26,4 @@ public class SecurityConfig {
         return http.build();
     }
 }
+
