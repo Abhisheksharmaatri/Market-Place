@@ -133,7 +133,7 @@ public class OrderService {
         }
     }
 
-    public void Delete(Long id){
+    public void Delete(String id){
         try{
             Order order = orderRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException("Order was not found with id: " + id));
@@ -188,7 +188,7 @@ public class OrderService {
         }
     }
 
-    public OrderResponse Get(Long id){
+    public OrderResponse Get(String id){
         try{
             Order order = orderRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + id));

@@ -25,7 +25,7 @@ public class OrderController {
 
     @DeleteMapping()
     @ResponseStatus(HttpStatus.OK)
-    public void Delete(@RequestParam("id") Long id){
+    public void Delete(@RequestParam("id") String id){
         orderService.Delete(id);
     }
 
@@ -38,7 +38,7 @@ public class OrderController {
     @GetMapping("/item")
     @ResponseStatus(HttpStatus.OK)
     public OrderResponse GetOne(
-            @RequestParam("id") Long id
+            @RequestParam("id") String id
     ){
         return orderService.Get(id);
     }

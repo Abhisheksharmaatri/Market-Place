@@ -1,14 +1,12 @@
 package org.abhishek.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Entity(name = "order_table")
+@Document(value = "Order")
 @Data
 @Getter
 @Setter
@@ -17,8 +15,7 @@ import java.util.List;
 @Builder
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
     private String orderItemList;
     private Integer total;
     private String userId;
