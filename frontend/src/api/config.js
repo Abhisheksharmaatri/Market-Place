@@ -5,9 +5,9 @@
  * - Can switch to gateway later
  */
 const SERVICE_URLS = {
-  product: "http://localhost:8080/api",
-  inventory: "http://localhost:8080/api",
-  order: "http://localhost:8080/api",
+  product: "https://market-place-api-3bbo.onrender.com/api",
+  inventory: "https://market-place-api-3bbo.onrender.com/api",
+  order: "https://market-place-api-3bbo.onrender.com/api",
 };
 
 export default SERVICE_URLS;

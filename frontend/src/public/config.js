@@ -1,6 +1,6 @@
 module.exports = {
     backend: {
-        url:"http://localhost:8080/api"
+        url:"https://market-place-api-3bbo.onrender.com/api"
     },
     user: {
         name: {

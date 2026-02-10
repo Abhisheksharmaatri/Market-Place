@@ -1,5 +1,5 @@
 async function login(email, password) {
-  const res = await fetch("http://localhost:8080/api/user/login", {
+  const res = await fetch("https://market-place-api-3bbo.onrender.com/api/user/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
