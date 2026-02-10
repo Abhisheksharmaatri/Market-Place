@@ -51,7 +51,7 @@ public class InventoryService {
     }
 
     @Transactional
-    public void Update(InventoryRequest inventoryRequest, Long id){
+    public void Update(InventoryRequest inventoryRequest, String id){
         try{
             Inventory inventory = inventoryRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException("Inventory not found with id:" + id));
@@ -107,7 +107,7 @@ public class InventoryService {
         
     }
 
-    public void Delete(Long id){
+    public void Delete(String id){
         try{
             Inventory inventory = inventoryRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException("Inventory not found with id:" + id));
@@ -130,7 +130,7 @@ public class InventoryService {
         }
     }
 
-    public InventoryResponse Get(Long id){
+    public InventoryResponse Get(String id){
         try{
             Inventory inventory = inventoryRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException("Inventory not found with id:" + id));
@@ -177,7 +177,7 @@ public class InventoryService {
         }
     }
 
-    public InventoryResponse Get(String productId){
+    public InventoryResponse GetByProductId(String productId){
         try{
             Inventory inventory = inventoryRepository.findByProductId(productId)
                     .orElseThrow(() -> new ResourceNotFoundException("Inventory not found with product id:" + productId));

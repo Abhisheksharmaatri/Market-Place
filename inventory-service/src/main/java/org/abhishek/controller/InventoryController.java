@@ -25,7 +25,7 @@ public class InventoryController {
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public void Update(
-            @RequestParam("id") Long id,
+            @RequestParam("id") String id,
             @RequestBody InventoryRequest inventoryRequest
     ){
         inventoryService.Update(inventoryRequest, id);
@@ -43,7 +43,7 @@ public class InventoryController {
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
     public void Delete(
-            @RequestParam("id") Long id
+            @RequestParam("id") String id
     ){
         inventoryService.Delete(id);
     }
@@ -57,7 +57,7 @@ public class InventoryController {
     @GetMapping("/item")
     @ResponseStatus(HttpStatus.OK)
     public InventoryResponse GetOne(
-            @RequestParam("id") Long id
+            @RequestParam("id") String id
     ){
         return inventoryService.Get(id);
     }
@@ -67,7 +67,7 @@ public class InventoryController {
     public InventoryResponse GetByProductId(
             @RequestParam("productId") String productId
     ){
-        return inventoryService.Get(productId);
+        return inventoryService.GetByProductId(productId);
     }
 
     @GetMapping("/status")
