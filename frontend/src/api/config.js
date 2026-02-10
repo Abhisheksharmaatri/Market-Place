@@ -5,9 +5,12 @@
  * - Can switch to gateway later
  */
 const SERVICE_URLS = {
-  product: "https://market-place-api-3bbo.onrender.com/api",
-  inventory: "https://market-place-api-3bbo.onrender.com/api",
-  order: "https://market-place-api-3bbo.onrender.com/api",
+  product: "https://market-place-product-o37u.onrender.com/api",
+  inventory: "https://market-place-inventory.onrender.com/api",
+  order: "https://market-place-user.onrender.com/api",
 };
 
 export default SERVICE_URLS;
+
+
+// https://market-place-api-3bbo.onrender.com/api
