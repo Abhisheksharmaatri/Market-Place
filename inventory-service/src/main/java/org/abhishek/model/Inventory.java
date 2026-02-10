@@ -1,10 +1,11 @@
 package org.abhishek.model;
-
-
-import jakarta.persistence.*;
 import lombok.*;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity(name = "inventory_table")
+@Document(value = "Inventory")
 @Data
 @Getter
 @Setter
@@ -13,10 +14,10 @@ import lombok.*;
 @Builder
 public class Inventory {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
 
-    @Column(nullable = false, unique = true)
+    @Indexed(unique = true)
+    @NotNull
     private String productId;
 
     private Integer price;
