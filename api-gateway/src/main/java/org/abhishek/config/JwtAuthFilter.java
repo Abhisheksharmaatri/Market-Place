@@ -23,6 +23,26 @@ public class JwtAuthFilter
     @Override
     public GatewayFilter apply(Config config) {
 
+        return (exchange, chain) -> {
+
+            String path = exchange.getRequest().getURI().getPath();
+
+            // ✅ ALLOW PUBLIC ENDPOINTS
+            if (path.startsWith("/api/user/login")
+                    || path.startsWith("/api/user/register")
+                    || path.startsWith("/api/user/signup")) {
+                return chain.filter(exchange);
+            }
+
+            // ✅ ALLOW CORS PREFLIGHT
+            if (exchange.getRequest().getMethod() == HttpMethod.OPTIONS) {
+                return chain.filter(exchange);
+            }
+
+
+    @Override
+    public GatewayFilter apply(Config config) {
+
 
         return (exchange, chain) -> {
             if (exchange.getRequest().getMethod() == HttpMethod.OPTIONS) {
