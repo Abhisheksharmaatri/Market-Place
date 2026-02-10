@@ -42,9 +42,10 @@ public class OrderService {
                         .get()
                         .uri(uriBuilder ->
                                 uriBuilder
-                                        .scheme("http")
+                                        .scheme("https")
 //                                    .host("localhost")
-                                        .host("inventory-service")
+//                                        .host("inventory-service")
+                                        .host("market-place-inventory.onrender.com")
 //                                    .port(8082)
                                         .path("/api/inventory/product")
                                         .queryParam("productId", productItem.getProductId())
@@ -86,7 +87,8 @@ public class OrderService {
                                 uriBuilder
                                         .scheme("http")
 //                                    .host("localhost")
-                                        .host("inventory-service")
+//                                        .host("inventory-service")
+                                        .host("market-place-inventory.onrender.com")
 //                                    .port(8082)
                                         .path("/api/inventory/product")
                                         .queryParam("productId", orderItem.getProductId())
