@@ -20,11 +20,14 @@ public class JwtAuthFilter
         this.jwtUtil = jwtUtil;
     }
 
+
     @Override
     public GatewayFilter apply(Config config) {
 
-        return (exchange, chain) -> {
 
+
+
+        return (exchange, chain) -> {
             String path = exchange.getRequest().getURI().getPath();
 
             // ✅ ALLOW PUBLIC ENDPOINTS
@@ -39,12 +42,6 @@ public class JwtAuthFilter
                 return chain.filter(exchange);
             }
 
-
-    @Override
-    public GatewayFilter apply(Config config) {
-
-
-        return (exchange, chain) -> {
             if (exchange.getRequest().getMethod() == HttpMethod.OPTIONS) {
                 return chain.filter(exchange);
             }
