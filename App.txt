@@ -4,3 +4,9 @@ mongodb+srv://alexwolfdog:alexwolfdog@product.prf7sep.mongodb.net/Product?authSo
 
 User:
 spring.data.mongodb.uri=mongodb+srv://alexwolfdog:alexwolfdog@user.nddftuc.mongodb.net/User?authSource=admin&retryWrites=true&w=majority&appName=User
+
+Inventory
+mongodb+srv://alexwolfdog:alexwolfdog@inventory.exx5mga.mongodb.net/Inventory?authSource=admin&retryWrites=true&w=majority&appName=Inventory
+
+Order
+mongodb+srv://alexwolfdog:alexwolfdog@order.d1vhlyk.mongodb.net/Order?authSource=admin&retryWrites=true&w=majority&appName=Order

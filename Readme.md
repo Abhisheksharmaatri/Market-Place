@@ -1,3 +1,14 @@
+Deploying
+1. Product service is working fine no problem.
+2. Inventory Service is in mysql which i need to change to mongodb as no mysql service found.
+3. Need to change order item list from mysql to mongodb for the same.
+
+Goal
+1. Deploy inventory service.
+
+All services except order are working now need to work in api gateway and then find the feasibilyt of the discovery server service.
+
+
 This si the project to learn microservices using java springboot.
 
 First Service:
@@ -55,5 +66,6 @@ Login and registeration of user servcies are runnig fine and all routes except l
 Implement the system on frontend.
 
 Need to overhaul the frontend part completely on the same model as https://github.com/Abhisheksharmaatri/Collaborative-Code-Editor/blob/master/frontend/src/pages/Home.js
+
 
 
