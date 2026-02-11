@@ -31,6 +31,7 @@ public class InventoryService {
     private final WebClient.Builder webClientBuilder;
 
     public void Create(InventoryRequest inventoryRequest){
+        log.info("Started the CREATE request for Inventory.");
         try{
             ProductResponse productResponse=webClientBuilder.build()
                     .get()
@@ -45,22 +46,29 @@ public class InventoryService {
                     .retrieve()
                     .bodyToMono(ProductResponse.class)
                     .block();
+            log.info("Product Response found a product with given id");
             Inventory inventory = mapFromRequest(inventoryRequest);
+            log.info("Saving the inventory");
             Inventory savedInventory = inventoryRepository.save(inventory);
             log.info("Inventory with id: {} was saved", savedInventory.getId());
         }catch (WebClientResponseException.NotFound ex) {
+            log.info("Inventory service resource not found");
             throw new ResourceNotFoundException("Inventory service resource not found");
         }
         catch (WebClientResponseException.BadRequest ex) {
-            throw new BadRequestException("Invalid request sent to inventory service");
+            log.info("Invalid request sent to Inventory service");
+            throw new BadRequestException("Invalid request sent to Inventory service");
         }
         catch (WebClientResponseException.ServiceUnavailable ex) {
+            log.info("Inventory service unavailable");
             throw new DatabaseException("Inventory service unavailable");
         }
         catch (DataIntegrityViolationException ex) {
+            log.info("Product violates database constraints");
             throw new ConflictException("Product violates database constraints");
         }
         catch (DataAccessException ex) {
+            log.info("Database operation failed");
             throw new DatabaseException("Database operation failed");
         }
 
@@ -68,33 +76,41 @@ public class InventoryService {
 
     @Transactional
     public void Update(InventoryRequest inventoryRequest, String id){
+        log.info("Started the UPDATE request for Inventory with id: {}",id);
         try{
             Inventory inventory = inventoryRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException("Inventory not found with id:" + id));
+            log.info("Inventory found for updating");
             inventory.setProductId(inventoryRequest.getProductId());
             inventory.setAmount(inventoryRequest.getAmount());
             inventory.setPrice(inventoryRequest.getPrice());
             log.info("Inventory with id: {} was updated.", inventory.getId());
             inventoryRepository.save(inventory);
         }catch (WebClientResponseException.NotFound ex) {
+            log.info("Inventory service resource not found");
             throw new ResourceNotFoundException("Inventory service resource not found");
         }
         catch (WebClientResponseException.BadRequest ex) {
-            throw new BadRequestException("Invalid request sent to inventory service");
+            log.info("Invalid request sent to Inventory service");
+            throw new BadRequestException("Invalid request sent to Inventory service");
         }
         catch (WebClientResponseException.ServiceUnavailable ex) {
+            log.info("Inventory service unavailable");
             throw new DatabaseException("Inventory service unavailable");
         }
         catch (DataIntegrityViolationException ex) {
+            log.info("Product violates database constraints");
             throw new ConflictException("Product violates database constraints");
         }
         catch (DataAccessException ex) {
+            log.info("Database operation failed");
             throw new DatabaseException("Database operation failed");
         }
     }
     
     @Transactional
     public void UpdateByProductId(InventoryRequest inventoryRequest, String productId){
+        log.info("Started the UPDATE BY PRODUCT ID for Inventory with productId: {}", productId);
         try{
             System.out.println(inventoryRequest.getAmount());
             System.out.println(inventoryRequest.getPrice());
@@ -106,113 +122,145 @@ public class InventoryService {
             log.info("Inventory with id: {} was updated.", inventory.getId());
             inventoryRepository.save(inventory);
         }catch (WebClientResponseException.NotFound ex) {
+            log.info("Inventory service resource not found");
             throw new ResourceNotFoundException("Inventory service resource not found");
         }
         catch (WebClientResponseException.BadRequest ex) {
-            throw new BadRequestException("Invalid request sent to inventory service");
+            log.info("Invalid request sent to Inventory service");
+            throw new BadRequestException("Invalid request sent to Inventory service");
         }
         catch (WebClientResponseException.ServiceUnavailable ex) {
+            log.info("Inventory service unavailable");
             throw new DatabaseException("Inventory service unavailable");
         }
         catch (DataIntegrityViolationException ex) {
+            log.info("Product violates database constraints");
             throw new ConflictException("Product violates database constraints");
         }
         catch (DataAccessException ex) {
+            log.info("Database operation failed");
             throw new DatabaseException("Database operation failed");
         }
         
     }
 
     public void Delete(String id){
+        log.info("Started Delete for inventory with id: {}", id);
         try{
             Inventory inventory = inventoryRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException("Inventory not found with id:" + id));
             log.info("Inventory with id: {} was deleted.", inventory.getId());
             inventoryRepository.delete(inventory);
         }catch (WebClientResponseException.NotFound ex) {
+            log.info("Inventory service resource not found");
             throw new ResourceNotFoundException("Inventory service resource not found");
         }
         catch (WebClientResponseException.BadRequest ex) {
-            throw new BadRequestException("Invalid request sent to inventory service");
+            log.info("Invalid request sent to Inventory service");
+            throw new BadRequestException("Invalid request sent to Inventory service");
         }
         catch (WebClientResponseException.ServiceUnavailable ex) {
+            log.info("Inventory service unavailable");
             throw new DatabaseException("Inventory service unavailable");
         }
         catch (DataIntegrityViolationException ex) {
+            log.info("Product violates database constraints");
             throw new ConflictException("Product violates database constraints");
         }
         catch (DataAccessException ex) {
+            log.info("Database operation failed");
             throw new DatabaseException("Database operation failed");
         }
     }
 
     public InventoryResponse Get(String id){
+        log.info("Started GET for inventory with id: {}", id);
         try{
             Inventory inventory = inventoryRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException("Inventory not found with id:" + id));
+            log.info("The inventory for GET request found for id: {}", id);
             InventoryResponse inventoryResponse = mapToResponse(inventory);
             log.info("Inventory with id: {} was fetched.", inventory.getId());
             return inventoryResponse;
         }catch (WebClientResponseException.NotFound ex) {
+            log.info("Inventory service resource not found");
             throw new ResourceNotFoundException("Inventory service resource not found");
         }
         catch (WebClientResponseException.BadRequest ex) {
-            throw new BadRequestException("Invalid request sent to inventory service");
+            log.info("Invalid request sent to Inventory service");
+            throw new BadRequestException("Invalid request sent to Inventory service");
         }
         catch (WebClientResponseException.ServiceUnavailable ex) {
+            log.info("Inventory service unavailable");
             throw new DatabaseException("Inventory service unavailable");
         }
         catch (DataIntegrityViolationException ex) {
+            log.info("Product violates database constraints");
             throw new ConflictException("Product violates database constraints");
         }
         catch (DataAccessException ex) {
+            log.info("Database operation failed");
             throw new DatabaseException("Database operation failed");
         }
     }
 
     public List<InventoryResponse> Get(){
+        log.info("Started GET ALL for Inventory");
         try{
             List<Inventory> inventoryList = inventoryRepository.findAll();
+            log.info("The Inventory List for GET ALL found.");
             List<InventoryResponse> inventoryResponseList = inventoryList.stream().map(this::mapToResponse).toList();
             log.info("All the inventory list fetched.");
             return inventoryResponseList;
         }catch (WebClientResponseException.NotFound ex) {
+            log.info("Inventory service resource not found");
             throw new ResourceNotFoundException("Inventory service resource not found");
         }
         catch (WebClientResponseException.BadRequest ex) {
-            throw new BadRequestException("Invalid request sent to inventory service");
+            log.info("Invalid request sent to Inventory service");
+            throw new BadRequestException("Invalid request sent to Inventory service");
         }
         catch (WebClientResponseException.ServiceUnavailable ex) {
+            log.info("Inventory service unavailable");
             throw new DatabaseException("Inventory service unavailable");
         }
         catch (DataIntegrityViolationException ex) {
+            log.info("Product violates database constraints");
             throw new ConflictException("Product violates database constraints");
         }
         catch (DataAccessException ex) {
+            log.info("Database operation failed");
             throw new DatabaseException("Database operation failed");
         }
     }
 
     public InventoryResponse GetByProductId(String productId){
+        log.info("Started GET BY PRODUCT ID for inventory with product id: {}", productId);
         try{
             Inventory inventory = inventoryRepository.findByProductId(productId)
                     .orElseThrow(() -> new ResourceNotFoundException("Inventory not found with product id:" + productId));
+            log.info("Inventory request for GET BY PRODUCT ID was found with id: {}.", productId);
             InventoryResponse inventoryResponse = mapToResponse(inventory);
             log.info("Inventory with id : {} was found with the productId: {}", inventory.getId(), inventory.getProductId());
             return inventoryResponse;
         }catch (WebClientResponseException.NotFound ex) {
+            log.info("Inventory service resource not found");
             throw new ResourceNotFoundException("Inventory service resource not found");
         }
         catch (WebClientResponseException.BadRequest ex) {
-            throw new BadRequestException("Invalid request sent to inventory service");
+            log.info("Invalid request sent to Inventory service");
+            throw new BadRequestException("Invalid request sent to Inventory service");
         }
         catch (WebClientResponseException.ServiceUnavailable ex) {
+            log.info("Inventory service unavailable");
             throw new DatabaseException("Inventory service unavailable");
         }
         catch (DataIntegrityViolationException ex) {
+            log.info("Product violates database constraints");
             throw new ConflictException("Product violates database constraints");
         }
         catch (DataAccessException ex) {
+            log.info("Database operation failed");
             throw new DatabaseException("Database operation failed");
         }
     }
