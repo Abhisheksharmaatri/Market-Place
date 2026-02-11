@@ -26,24 +26,30 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public void Create(UserRequest userRequest){
-        log.info("reaching service");
+        log.info("Started CREATE request for User service.");
         try{
             User user=mapFromRequest(userRequest);
+            log.info("Saving the User Object for User CREATE request.");
             User savedUser=userRepository.save(user);
         }
         catch (WebClientResponseException.NotFound ex) {
-            throw new ResourceNotFoundException("Product service resource not found");
+            log.info("User service resource not found");
+            throw new ResourceNotFoundException("User service resource not found");
         }
         catch (WebClientResponseException.BadRequest ex) {
-            throw new BadRequestException("Invalid request sent to product service");
+            log.info("Invalid request sent to User service");
+            throw new BadRequestException("Invalid request sent to User service");
         }
         catch (WebClientResponseException.ServiceUnavailable ex) {
-            throw new DatabaseException("Product service unavailable");
+            log.info("User service unavailable");
+            throw new DatabaseException("User service unavailable");
         }
         catch (DataIntegrityViolationException ex) {
-            throw new ConflictException("Product violates database constraints");
+            log.info("User violates database constraints");
+            throw new ConflictException("User violates database constraints");
         }
         catch (DataAccessException ex) {
+            log.info("Database operation failed");
             throw new DatabaseException("Database operation failed");
         }
     };
@@ -51,25 +57,33 @@ public class UserService {
     public void Delete(){};
 
     public UserResponse Get(String mail){
+        log.info("Started the GET request for User service for email id: {}", mail);
         try{
             User user=userRepository.findByMail(mail)
                     .orElseThrow(()-> new ResourceNotFoundException("The user with this email was not found."));
+            log.info("User for GET request for User service was found for email id: {}", mail);
             UserResponse userResponse=mapToResponse(user);
+            log.info("Returning the user response for GET request for User service with email id: {}.", mail);
             return userResponse;
         }
         catch (WebClientResponseException.NotFound ex) {
-            throw new ResourceNotFoundException("Product service resource not found");
+            log.info("User service resource not found");
+            throw new ResourceNotFoundException("User service resource not found");
         }
         catch (WebClientResponseException.BadRequest ex) {
-            throw new BadRequestException("Invalid request sent to product service");
+            log.info("Invalid request sent to User service");
+            throw new BadRequestException("Invalid request sent to User service");
         }
         catch (WebClientResponseException.ServiceUnavailable ex) {
-            throw new DatabaseException("Product service unavailable");
+            log.info("User service unavailable");
+            throw new DatabaseException("User service unavailable");
         }
         catch (DataIntegrityViolationException ex) {
-            throw new ConflictException("Product violates database constraints");
+            log.info("User violates database constraints");
+            throw new ConflictException("User violates database constraints");
         }
         catch (DataAccessException ex) {
+            log.info("Database operation failed");
             throw new DatabaseException("Database operation failed");
         }
     }
