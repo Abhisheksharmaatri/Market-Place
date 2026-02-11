@@ -1,0 +1,28 @@
+name: Keep Render Microservices Alive
+
+on:
+  schedule:
+    - cron: "* * * * *"   # every 1 minute
+  workflow_dispatch:
+
+jobs:
+  ping-services:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping All Services
+        run: |
+#          User
+          curl -s https://market-place-user.onrender.com/api/user/status
+               
+#          Order
+          curl -s https://market-place-product-o37u.onrender.com/api/status
+           
+#           Inventory
+          curl -s https://market-place-inventory.onrender.com/api/inventory/status
+          
+#          Product
+          curl -s https://market-place-inventory.onrender.com/api/inventory/status
+          
+#          Frontend
+          curl -s https://market-place-ey0h.onrender.com/products
