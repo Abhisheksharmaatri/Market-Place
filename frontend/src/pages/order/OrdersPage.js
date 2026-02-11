@@ -12,6 +12,7 @@ export default function OrdersPage() {
   const [productList, setProductList] = useState([]);
   const [userId] = useState(1); 
   const [orderItems, setOrderItems] = useState([{ productId: "", amount: 1 }]);
+  const [refreshKey, setRefreshKey] = useState(0);
   // CHANGE: added error and loading states
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -22,10 +23,12 @@ export default function OrdersPage() {
     setLoading(true);
 
     try {
-      const [ordersRes, productsRes] = await Promise.all([
-        getOrders(),
-        getAllProducts()
-      ]);
+      const ordersRes = await getOrders();
+      const productsRes = await getAllProducts();
+
+      console.log("Orders:", ordersRes);
+      console.log("Products:", productsRes);
+
 
       const enrichedOrders = await Promise.all(
         ordersRes.map(async (o) => {
@@ -40,6 +43,7 @@ export default function OrdersPage() {
 
       setOrders(enrichedOrders);
       setProductList(productsRes);
+      setRefreshKey(prev=>prev+1)
 
     } catch (err) {
       handleApiError(err);
@@ -96,7 +100,7 @@ const handleApiError = (err) => {
 
   useEffect(() => {
     refreshData();
-  }, []);
+  }, [refreshKey]);
 
   const handleItemChange = (index, field, value) => {
     const updatedItems = [...orderItems];
@@ -131,7 +135,8 @@ const handleSubmit = async (e) => {
 
       alert("Order created!");
       setOrderItems([{ productId: "", amount: 1 }]);
-      refreshData();
+//      refreshData();
+      setRefreshKey(prev => prev + 1);
 
     } catch (err) {
       handleApiError(err);
@@ -156,6 +161,7 @@ const handleSubmit = async (e) => {
           addProductRow={addProductRow}
           removeProductRow={removeProductRow}
           handleSubmit={handleSubmit}
+          setRefreshKey={setRefreshKey}
         />
       <h2>Orders List</h2>
       {loading && <p>Loading...</p>}
