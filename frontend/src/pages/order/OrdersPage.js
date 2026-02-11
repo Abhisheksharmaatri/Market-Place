@@ -43,9 +43,9 @@ export default function OrdersPage() {
 
       setOrders(enrichedOrders);
       setProductList(productsRes);
-      setRefreshKey(prev=>prev+1)
 
     } catch (err) {
+    console.log(err)
       handleApiError(err);
     }
       finally {
@@ -100,7 +100,7 @@ const handleApiError = (err) => {
 
   useEffect(() => {
     refreshData();
-  }, [refreshKey]);
+  }, []);
 
   const handleItemChange = (index, field, value) => {
     const updatedItems = [...orderItems];
@@ -132,6 +132,8 @@ const handleSubmit = async (e) => {
       setLoading(true);
 
       await createOrder({ userId, productList: orderItems });
+      setRefreshKey(prev => prev + 1);  // triggers re-fetch
+
 
       alert("Order created!");
       setOrderItems([{ productId: "", amount: 1 }]);

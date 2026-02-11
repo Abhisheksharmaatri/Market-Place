@@ -32,8 +32,13 @@ export const getOrders = async () => {
     throw new Error("Failed to fetch orders");
   }
 
-  return await response.data();
+  // ✅ Read body ONCE
+  const data = await response.json();
+
+  console.log("Orders:", data); // Now real JSON
+  return data;
 };
+
 
 
 
