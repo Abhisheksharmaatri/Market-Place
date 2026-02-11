@@ -2,7 +2,7 @@ name: Keep Render Microservices Alive
 
 on:
   schedule:
-    - cron: "*/10 * * * *"   # every 1 minute
+    - cron: "*/10 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -12,17 +12,17 @@ jobs:
     steps:
       - name: Ping All Services
         run: |
-#          User
+          # User
           curl -s https://market-place-user.onrender.com/api/user/status
-               
-#          Order
+          
+          # Order
           curl -s https://market-place-product-o37u.onrender.com/api/status
-           
-#           Inventory
+          
+          # Inventory
           curl -s https://market-place-inventory.onrender.com/api/inventory/status
           
-#          Product
+          # Product
           curl -s https://market-place-inventory.onrender.com/api/inventory/status
           
-#          Frontend
+          # Frontend
           curl -s https://market-place-ey0h.onrender.com/products
