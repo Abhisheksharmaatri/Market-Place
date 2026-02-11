@@ -47,7 +47,8 @@ export const createOrder = async (order) => {
 
   try {
     const response = await axios.post(
-      `${SERVICE_URLS.order}/order`,
+      // `${SERVICE_URLS.order}/order`,
+      "https://market-place-api-3bbo.onrender.com/api/order",
       order,
       {
         headers: {
