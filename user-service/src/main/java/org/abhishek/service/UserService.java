@@ -28,6 +28,13 @@ public class UserService {
     public void Create(UserRequest userRequest){
         log.info("Started CREATE request for User service.");
         try{
+            String email = userRequest.getMail().toLowerCase();
+
+            // ✅ Check if user already exists
+            if (userRepository.findByMail(email).isPresent()) {
+                log.info("User already exists with email: {}", email);
+                throw new BadRequestException("User already exists with this email");
+            }
             User user=mapFromRequest(userRequest);
             log.info("Saving the User Object for User CREATE request.");
             User savedUser=userRepository.save(user);
