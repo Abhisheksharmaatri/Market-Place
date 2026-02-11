@@ -16,7 +16,7 @@ jobs:
           curl -s https://market-place-user.onrender.com/api/user/status
           
           # Order
-          curl -s https://market-place-product-o37u.onrender.com/api/status
+          curl -s https://market-place-order.onrender.com/api/order/status
           
           # Inventory
           curl -s https://market-place-inventory.onrender.com/api/inventory/status
