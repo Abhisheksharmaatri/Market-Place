@@ -40,22 +40,27 @@ public class UserService {
             User savedUser=userRepository.save(user);
         }
         catch (WebClientResponseException.NotFound ex) {
+            log.info(ex.toString());
             log.info("User service resource not found");
             throw new ResourceNotFoundException("User service resource not found");
         }
         catch (WebClientResponseException.BadRequest ex) {
+            log.info(ex.toString());
             log.info("Invalid request sent to User service");
             throw new BadRequestException("Invalid request sent to User service");
         }
         catch (WebClientResponseException.ServiceUnavailable ex) {
+            log.info(ex.toString());
             log.info("User service unavailable");
             throw new DatabaseException("User service unavailable");
         }
         catch (DataIntegrityViolationException ex) {
+            log.info(ex.toString());
             log.info("User violates database constraints");
             throw new ConflictException("User violates database constraints");
         }
         catch (DataAccessException ex) {
+            log.info(ex.toString());
             log.info("Database operation failed");
             throw new DatabaseException("Database operation failed");
         }
@@ -74,22 +79,27 @@ public class UserService {
             return userResponse;
         }
         catch (WebClientResponseException.NotFound ex) {
+            log.info(ex.toString());
             log.info("User service resource not found");
             throw new ResourceNotFoundException("User service resource not found");
         }
         catch (WebClientResponseException.BadRequest ex) {
+            log.info(ex.toString());
             log.info("Invalid request sent to User service");
             throw new BadRequestException("Invalid request sent to User service");
         }
         catch (WebClientResponseException.ServiceUnavailable ex) {
+            log.info(ex.toString());
             log.info("User service unavailable");
             throw new DatabaseException("User service unavailable");
         }
         catch (DataIntegrityViolationException ex) {
+            log.info(ex.toString());
             log.info("User violates database constraints");
             throw new ConflictException("User violates database constraints");
         }
         catch (DataAccessException ex) {
+            log.info(ex.toString());
             log.info("Database operation failed");
             throw new DatabaseException("Database operation failed");
         }
