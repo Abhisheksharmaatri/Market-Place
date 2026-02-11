@@ -22,7 +22,7 @@ jobs:
           curl -s https://market-place-inventory.onrender.com/api/inventory/status
           
           # Product
-          curl -s https://market-place-inventory.onrender.com/api/inventory/status
+          https://market-place-product-o37u.onrender.com/api/product/status
           
           # Frontend
           curl -s https://market-place-ey0h.onrender.com/products
