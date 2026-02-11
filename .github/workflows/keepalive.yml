@@ -2,7 +2,7 @@ name: Keep Render Microservices Alive
 
 on:
   schedule:
-    - cron: "* * * * *"   # every 1 minute
+    - cron: "*/10 * * * *"   # every 1 minute
   workflow_dispatch:
 
 jobs:
