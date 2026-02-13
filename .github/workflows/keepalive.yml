@@ -25,4 +25,4 @@ jobs:
           https://market-place-product-o37u.onrender.com/api/product/status
           
           # Frontend
-          curl -s https://market-place-ey0h.onrender.com/products
+          curl -s https://market-place-ey0h.onrender.com
