@@ -26,3 +26,6 @@ jobs:
           
           # Frontend
           curl -s https://market-place-ey0h.onrender.com
+
+#          API Gateway
+          curl -s https://market-place-api-3bbo.onrender.com/actuator/health
