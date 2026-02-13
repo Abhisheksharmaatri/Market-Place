@@ -10,8 +10,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfig {
     @Bean
-    @LoadBalanced
-    @Primary   // ← THIS is the missing piece
+//    @LoadBalanced
+//    @Primary   // ← THIS is the missing piece
     public WebClient.Builder webClientBuilder() {
         return WebClient.builder();
     }
