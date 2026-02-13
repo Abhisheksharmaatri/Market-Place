@@ -69,7 +69,7 @@ export const updateProduct = async (product, id) => {
   }
 
   const response = await fetch(
-    `${SERVICE_URLS.url}/product?id=${Number(id)}`,
+    `${SERVICE_URLS.url}/product?id=${String(id)}`,
     {
       method: "PUT",
       headers: {
@@ -102,7 +102,7 @@ export const deleteProduct = async (id) => {
   }
 
   const response = await fetch(
-    `${SERVICE_URLS.url}/product?id=${Number(id)}`,
+    `${SERVICE_URLS.url}/product?id=${String(id)}`,
     {
       method: "DELETE",
       headers: {
@@ -129,7 +129,7 @@ export const getOneProduct = async (id) => {
   }
 
   const response = await fetch(
-    `${SERVICE_URLS.url}/product/item?id=${Number(id)}`,
+    `${SERVICE_URLS.url}/product/item?id=${String(id)}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

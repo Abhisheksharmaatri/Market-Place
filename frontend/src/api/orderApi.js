@@ -89,7 +89,7 @@ export const deleteOrder = async (id) => {
       `${SERVICE_URLS.url}/order`,
       {
         params: {
-          id: Number(id),
+          id: String(id),
         },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -124,7 +124,7 @@ export const getOneOrder = async (id) => {
       `${SERVICE_URLS.url}/order/item`,
       {
         params: {
-          id: Number(id),
+          id: String(id),
         },
         headers: {
           Authorization: `Bearer ${token}`,
