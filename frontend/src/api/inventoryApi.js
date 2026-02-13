@@ -11,7 +11,7 @@ export const getInventory = async () => {
   }
 
   const response = await fetch(
-    `${SERVICE_URLS.inventory}/inventory`,
+    `${SERVICE_URLS.url}/inventory`,
     {
       method: "GET",
       headers: {
@@ -45,7 +45,7 @@ export const createInventory = async (inventory) => {
   }
 
   const response = await fetch(
-    `${SERVICE_URLS.inventory}/inventory`,
+    `${SERVICE_URLS.url}/inventory`,
     {
       method: "POST",
       headers: {
@@ -78,7 +78,7 @@ export const updateInventory = async (inventory, id) => {
   const { productId, price, amount } = inventory;
 
   const response = await fetch(
-    `${SERVICE_URLS.inventory}/inventory?id=${Number(id)}`,
+    `${SERVICE_URLS.url}/inventory?id=${Number(id)}`,
     {
       method: "PUT",
       headers: {
@@ -111,7 +111,7 @@ export const deleteInventory = async (id) => {
   }
 
   const response = await fetch(
-    `${SERVICE_URLS.inventory}/inventory?id=${Number(id)}`,
+    `${SERVICE_URLS.url}/inventory?id=${Number(id)}`,
     {
       method: "DELETE",
       headers: {
@@ -140,7 +140,7 @@ export const getOneInventory = async (id) => {
   }
 
   const response = await fetch(
-    `${SERVICE_URLS.inventory}/inventory/item?id=${Number(id)}`,
+    `${SERVICE_URLS.url}/inventory/item?id=${Number(id)}`,
     {
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -167,7 +167,7 @@ export const getOneInventoryByProductId = async (productId) => {
   }
 
   const response = await fetch(
-    `${SERVICE_URLS.inventory}/inventory/product?productId=${Number(productId)}`,
+    `${SERVICE_URLS.url}/inventory/product?productId=${Number(productId)}`,
     {
       headers: {
         "Authorization": `Bearer ${token}`,

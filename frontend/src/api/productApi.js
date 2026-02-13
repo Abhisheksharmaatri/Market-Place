@@ -11,7 +11,7 @@ export const getAllProducts = async () => {
   }
 
   const response = await fetch(
-    `${SERVICE_URLS.product}/product`,
+    `${SERVICE_URLS.url}/product`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -38,7 +38,7 @@ export const createProduct = async (product) => {
   }
 
   const response = await fetch(
-    `${SERVICE_URLS.product}/product`,
+    `${SERVICE_URLS.url}/product`,
     {
       method: "POST",
       headers: {
@@ -69,7 +69,7 @@ export const updateProduct = async (product, id) => {
   }
 
   const response = await fetch(
-    `${SERVICE_URLS.product}/product?id=${Number(id)}`,
+    `${SERVICE_URLS.url}/product?id=${Number(id)}`,
     {
       method: "PUT",
       headers: {
@@ -102,7 +102,7 @@ export const deleteProduct = async (id) => {
   }
 
   const response = await fetch(
-    `${SERVICE_URLS.product}/product?id=${Number(id)}`,
+    `${SERVICE_URLS.url}/product?id=${Number(id)}`,
     {
       method: "DELETE",
       headers: {
@@ -129,7 +129,7 @@ export const getOneProduct = async (id) => {
   }
 
   const response = await fetch(
-    `${SERVICE_URLS.product}/product/item?id=${Number(id)}`,
+    `${SERVICE_URLS.url}/product/item?id=${Number(id)}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

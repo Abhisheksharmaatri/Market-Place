@@ -11,7 +11,8 @@ export const getOrders = async () => {
   }
 
   const response = await fetch(
-    `${SERVICE_URLS.order}/order`,
+    `${SERVICE_URLS.url}/order`,
+//"https://market-place-api-3bbo.onrender.com/api/order",
     {
       method: "GET",
       headers: {
@@ -52,8 +53,8 @@ export const createOrder = async (order) => {
 
   try {
     const response = await axios.post(
-      // `${SERVICE_URLS.order}/order`,
-      "https://market-place-api-3bbo.onrender.com/api/order",
+       `${SERVICE_URLS.url}/order`,
+//      "https://market-place-api-3bbo.onrender.com/api/order",
       order,
       {
         headers: {
@@ -75,17 +76,6 @@ export const createOrder = async (order) => {
 };
 
 
-
-// export const updateOrder=async(order, id)=>{
-//   const response=await axios.put(
-//     `${SERVICE_URLS.order}/order`,
-//     {
-
-//     }
-//   )
-//   return response;
-// }
-
 export const deleteOrder = async (id) => {
   const token = localStorage.getItem("token");
 
@@ -96,7 +86,7 @@ export const deleteOrder = async (id) => {
 
   try {
     const response = await axios.delete(
-      `${SERVICE_URLS.order}/order`,
+      `${SERVICE_URLS.url}/order`,
       {
         params: {
           id: Number(id),
@@ -131,7 +121,7 @@ export const getOneOrder = async (id) => {
 
   try {
     const response = await axios.get(
-      `${SERVICE_URLS.order}/order/item`,
+      `${SERVICE_URLS.url}/order/item`,
       {
         params: {
           id: Number(id),
