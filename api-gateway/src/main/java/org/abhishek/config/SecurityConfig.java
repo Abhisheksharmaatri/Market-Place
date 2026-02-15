@@ -25,18 +25,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-//    @Bean
-//    public CorsWebFilter corsWebFilter() {
-//        CorsConfiguration config = new CorsConfiguration();
-//        config.addAllowedOriginPattern("*");
-//        config.addAllowedMethod("*");
-//        config.addAllowedHeader("*");
-//
-//        UrlBasedCorsConfigurationSource source =
-//                new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", config);
-//
-//        return new CorsWebFilter(source);
-//    }
 }

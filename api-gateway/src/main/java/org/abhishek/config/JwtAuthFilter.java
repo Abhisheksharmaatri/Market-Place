@@ -30,17 +30,18 @@ public class JwtAuthFilter
         return (exchange, chain) -> {
             String path = exchange.getRequest().getURI().getPath();
 
-            // ✅ ALLOW PUBLIC ENDPOINTS
-            if (path.startsWith("/api/user/login")
-                    || path.startsWith("/api/user/register")
-                    || path.startsWith("/api/user/signup")) {
+            HttpMethod method = exchange.getRequest().getMethod();
+
+// ✅ Allow SIGNUP  → POST /api/user
+            if (path.equals("/api/user") && method == HttpMethod.POST) {
                 return chain.filter(exchange);
             }
 
-            // ✅ ALLOW CORS PREFLIGHT
-            if (exchange.getRequest().getMethod() == HttpMethod.OPTIONS) {
+// ✅ Allow LOGIN → GET /api/user/login
+            if (path.equals("/api/user/login") && method == HttpMethod.GET) {
                 return chain.filter(exchange);
             }
+
 
             if (exchange.getRequest().getMethod() == HttpMethod.OPTIONS) {
                 return chain.filter(exchange);
