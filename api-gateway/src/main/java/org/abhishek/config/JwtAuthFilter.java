@@ -38,7 +38,7 @@ public class JwtAuthFilter
             }
 
 // ✅ Allow LOGIN → GET /api/user/login
-            if (path.equals("/api/user/login") && method == HttpMethod.GET) {
+            if (path.equals("/api/user/login") && method == HttpMethod.POST) {
                 return chain.filter(exchange);
             }
 
