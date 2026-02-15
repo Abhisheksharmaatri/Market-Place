@@ -36,12 +36,21 @@ public class UserController {
         return "Running";
     }
 
-    @GetMapping()
+    @GetMapping("/user")
     @ResponseStatus(HttpStatus.OK)
     public UserResponse Get(
             @RequestParam("mail") String mail
     ){
         return userService.Get(mail);
+    }
+
+    @GetMapping()
+    @ResponseStatus(HttpStatus.OK)
+    public UserResponse Get(
+            @RequestHeader("X-User-Id") String userId,
+            @RequestHeader("X-User-Role") String role
+    ){
+        return userService.GetByUserId(userId);
     }
 
     @PostMapping("/login")
