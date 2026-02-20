@@ -5,6 +5,8 @@ import {
 import {user, backend} from "../../public/config.js"
 import '../../public/login.css';
 
+import SERVICE_URLS from "../../api/config";
+
 
 function LoginPage(props) {
     const [email, setEmail] = useState('')
@@ -42,8 +44,11 @@ function LoginPage(props) {
                 mail: email,
                 password: password
             }
-            const url = backend.url + '/user/login'
-            fetch(url, {
+//            const url = backend.url + '/user/login'
+            fetch(
+//            url,
+`${SERVICE_URLS.url}/user/login`,
+            {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -93,7 +98,7 @@ function LoginPage(props) {
                     <small className="text-danger">{passwordError}</small>
                 </div>
                 <div className='form__message'>
-                    <text className="message__danger">{message}</text>
+                    <p className="message__danger">{message}</p>
                 </div>
                 <div className="form__actions">
                     <button type="submit" className="btn btn-primary">Login</button>

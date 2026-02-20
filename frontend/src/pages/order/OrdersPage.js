@@ -6,10 +6,12 @@ import "../../public/order.css"
 import { getOneProduct } from "../../api/productApi";
 import OrderListItemCard from "../../components/order/orderListItemCard";
 import CreateOrderCard from "../../components/order/createOrderCard";
+import { getInventory } from "../../api/inventoryApi";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
   const [productList, setProductList] = useState([]);
+  const [inventoryList, setInventoryList]=useState([]);
   const [userId] = useState(1); 
   const [orderItems, setOrderItems] = useState([{ productId: "", amount: 1 }]);
   const [refreshKey, setRefreshKey] = useState(0);
@@ -25,9 +27,11 @@ export default function OrdersPage() {
     try {
       const ordersRes = await getOrders();
       const productsRes = await getAllProducts();
+      const inventoryRes= await getInventory();
 
       console.log("Orders:", ordersRes);
       console.log("Products:", productsRes);
+      console.log("inventoryRes: ", inventoryRes);
 
 
       const enrichedOrders = await Promise.all(
@@ -43,6 +47,7 @@ export default function OrdersPage() {
 
       setOrders(enrichedOrders);
       setProductList(productsRes);
+      setInventoryList(inventoryRes);
 
     } catch (err) {
     console.log(err)
@@ -100,7 +105,7 @@ const handleApiError = (err) => {
 
   useEffect(() => {
     refreshData();
-  }, []);
+  }, [refreshKey]);
 
   const handleItemChange = (index, field, value) => {
     const updatedItems = [...orderItems];
@@ -164,6 +169,7 @@ const handleSubmit = async (e) => {
           removeProductRow={removeProductRow}
           handleSubmit={handleSubmit}
           setRefreshKey={setRefreshKey}
+          inventoryList={inventoryList}
         />
       <h2>Orders List</h2>
       {loading && <p>Loading...</p>}

@@ -8,24 +8,38 @@ export default function SingleInventoryPage(){
     const [product, setProduct]=useState([])
     const {id}=useParams();
     const navigate=useNavigate()
+    const [message, setMessage]=useState("");
 
     const [amount, setAmount]=useState(0);
     const [price, setPrice]=useState(0);
 
     const handleDelete=async(e)=>{
-        await deleteInventory(id);
-        navigate("/inventory")
+        setMessage("Deleting Inventory");
+        const response=await deleteInventory(id);
+        if(response.ok){
+            navigate("/inventory")
+        }
+        else{
+            navigate("/error")
+        }
     }
 
     const handleUpdate=async(e)=>{
+        setMessage("Updating inventory");
         e.preventDefault();
         const updatedInventory={
             productId:inventory.productId,
             price:price,
             amount:amount
         }
-        await updateInventory(updatedInventory, id);
+        const response=await updateInventory(updatedInventory, id);
+        if(response.ok){
+            setMessage("Inventory was successfully updated");
+        }else{
+            setMessage("Some error occured while updating the inventory");
+        }
     }
+
 
     // Inside your fetch useEffect
     useEffect(() => {
@@ -54,6 +68,14 @@ export default function SingleInventoryPage(){
                     <div className="total-section">
                         <span>Stock Remaining:</span>
                         <strong>{inventory.amount} Units</strong>
+                    </div>
+                    <div className="total-section">
+                        <span>Created At:</span>
+                        <strong>{inventory.createdAt}</strong>
+                    </div>
+                    <div className="total-section">
+                        <span>Updated At:</span>
+                        <strong>{inventory.updatedAt}</strong>
                     </div>
 
                     {/* Update Form Section */}
@@ -103,6 +125,9 @@ export default function SingleInventoryPage(){
             ) : (
                 <p>Loading inventory data...</p>
             )}
+            <div className="total-section">
+                        <strong>{message}</strong>
+                    </div>
         </div>
     )
 }

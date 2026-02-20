@@ -10,11 +10,42 @@ export default function InventoryPage() {
   const [productId, setProductId] = useState("");
   const [amount, setAmount] = useState(0);
   const [price, setPrice] = useState(0);
+  const [message, setMessage]=useState("");
 
   useEffect(() => {
-    getInventory().then((data) => setItems(data));
-    getAllProducts().then((data) => setProductList(data));
-  }, []);
+
+  const fetchData = async () => {
+
+    const inventoryRes = await getInventory();
+    const productRes = await getAllProducts();
+
+    // Create product map
+    const productMap = new Map(
+      productRes.map(product => [product.id, product])
+    );
+
+    // Merge directly using fresh API data (NOT state)
+    const mergedList = inventoryRes.map(item => {
+      const product = productMap.get(item.productId);
+
+      return {
+        ...item,
+        name: product ? product.name : "Product not found in database",
+        description: product
+          ? product.description
+          : "Product not found in database"
+      };
+    });
+
+    setItems(mergedList); // ✅ set merged result once
+
+    console.log(mergedList);
+  };
+
+  fetchData();
+
+}, []);
+
 
   // --- FILTER LOGIC ---
   // We filter the productList to only include products whose ID 
@@ -38,16 +69,21 @@ export default function InventoryPage() {
       price: Number(price)
     };
 
-    await createInventory(newInventory);
-    
-    // Refresh inventory list
-    const updatedData = await getInventory();
+    const response=await createInventory(newInventory);
+    if(response.ok){const updatedData = await getInventory();
     setItems(updatedData);
     
     // Reset form
     setProductId("");
     setAmount(0);
     setPrice(0);
+    console.log(productList)
+    console.log(items)}
+    else{
+      setMessage("Some error encountered while creating the inventory.");
+    }
+    
+    // Refresh inventory list
   };
 
   return (
@@ -56,13 +92,19 @@ export default function InventoryPage() {
       <ul className="inventory-list">
         {items.map((i) => (
           <li key={i.productId} className="inventory-item">
-            <div>
+            <div className="total-section">
               <span className="item-main-info">Product ID: {i.productId}</span>
               <span className="item-sub-info">
                 ({i.amount} units available at ${i.price})
               </span>
             </div>
-            <Link to={`/inventory/${i.id}`} className="edit-link">Edit Stock</Link>
+            <div className="total-section">
+              <span className="item-main-info">Product name: {i.name}</span>
+              <span className="item-sub-info">
+                ({i.description})
+              </span>
+            </div>
+            <Link to={`/inventory/${i.id}`} className="btn-submit">Edit Stock</Link>
           </li>
         ))}
       </ul>
@@ -80,7 +122,9 @@ export default function InventoryPage() {
         onSubmit={handleSubmit}
       />
 
-      
+      <div className="total-section">
+                        <strong>{message}</strong>
+                    </div>
     </div>
   );
 }

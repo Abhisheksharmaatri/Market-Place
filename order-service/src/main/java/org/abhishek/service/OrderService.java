@@ -12,6 +12,7 @@ import org.abhishek.model.Order;
 import org.abhishek.model.OrderItemList;
 import org.abhishek.repository.OrderItemRepository;
 import org.abhishek.repository.OrderRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,27 +34,32 @@ public class OrderService {
     private final OrderItemRepository orderItemRepository;
     private final WebClient.Builder webClientBuilder;
 
+    @Value("${delivery.gap}")
+    private int deliveryGap;
+
+    @Value("${INVENTORY_SERVICE_URL}")
+    private String inventoryServiceUrl;
+
+
     @Transactional
     public void Create(OrderRequest orderRequest, String userId){
         List<OrderItem> orderItemList=new ArrayList<>();
         log.info("Starting the service.");
+        log.info("UserId: {}", userId);
+        log.info("OrderRequest: {}", orderRequest);
+        log.info("ProductList: {}", orderRequest.getProductList());
+        log.info("InventoryServiceUrl: {}", inventoryServiceUrl);
         try{
             List<OrderItem> inventoryItemList = orderRequest.getProductList().stream().map(productItem -> {
+                log.info("Calling inventory service for productId: {}", productItem.getProductId());
                 InventoryResponse inventoryResponse = webClientBuilder.build()
                         .get()
-                        .uri(uriBuilder ->
-                                uriBuilder
-                                        .scheme("https")
-//                                    .host("localhost")
-//                                        .host("inventory-service")
-                                        .host("market-place-inventory.onrender.com")
-//                                    .port(8082)
-                                        .path("/api/inventory/product")
-                                        .queryParam("productId", productItem.getProductId())
-                                        .build())
+                        .uri(inventoryServiceUrl + "/api/inventory/product?productId="
+                                + productItem.getProductId())   // ✅ full URL directly
                         .retrieve()
                         .bodyToMono(InventoryResponse.class)
                         .block();
+                log.info("Inventory response received: {}", inventoryResponse);
                 log.info(productItem.toString());
                 log.info(inventoryResponse.toString());
                 if (productItem.getAmount() > inventoryResponse.getAmount()) {
@@ -83,16 +90,8 @@ public class OrderService {
                         .build();
                 webClientBuilder.build()
                         .put()
-                        .uri(uriBuilder ->
-                                uriBuilder
-                                        .scheme("http")
-//                                    .host("localhost")
-//                                        .host("inventory-service")
-                                        .host("market-place-inventory.onrender.com")
-//                                    .port(8082)
-                                        .path("/api/inventory/product")
-                                        .queryParam("productId", orderItem.getProductId())
-                                        .build())
+                        .uri(inventoryServiceUrl + "/api/inventory/product?productId="
+                                + orderItem.getProductId())    // ✅ full URL directly
                         .bodyValue(inventoryRequest)
                         .retrieve()
                         .toBodilessEntity()
@@ -114,6 +113,8 @@ public class OrderService {
                     .orderItemList(savedOrderItemList.getId())
                     .total(total)
                     .userId(userId)
+                    .createdAt(LocalDateTime.now())
+                    .deliveryDate(LocalDateTime.now().plusDays(deliveryGap))
                     .build();
             orderRepository.save(order);
             log.info("ending the service");
@@ -132,6 +133,10 @@ public class OrderService {
         }
         catch (DataAccessException ex) {
             throw new DatabaseException("Database operation failed");
+        }
+        catch (Exception ex) {
+            log.error("Error occurred while creating order", ex);
+            throw ex;
         }
     }
 
@@ -227,6 +232,9 @@ public class OrderService {
                 .total(order.getTotal())
                 .userId(order.getUserId())
                 .orderItemList(orderItemList.getOrderItemList())
+                .createdAt(order.getCreatedAt())
+                .deliveryDate(order.getDeliveryDate())
+                .delivered(order.getDelivered())
                 .build();
         return orderResponse;
     }

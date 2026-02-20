@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { user, backend } from '../../public/config.js';
 import '../../public/login.css';
+import SERVICE_URLS from "../../api/config";
 
 function SignUp(props) {
   const [name, setName] = useState('');
@@ -55,8 +56,11 @@ function SignUp(props) {
         role:"User"
       }
 
-      const url = backend.url + '/user';
-      fetch(url, {
+//      const url = backend.url + '/user';
+      fetch(
+//      url,
+        `${SERVICE_URLS.url}/user`,
+       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

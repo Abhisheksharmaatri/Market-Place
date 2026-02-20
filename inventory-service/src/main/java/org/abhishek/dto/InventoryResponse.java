@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,5 +19,9 @@ public class InventoryResponse {
     private Integer price;
 
     private Integer amount;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -48,6 +49,7 @@ public class InventoryService {
                     .block();
             log.info("Product Response found a product with given id");
             Inventory inventory = mapFromRequest(inventoryRequest);
+            inventory.setCreatedAt(LocalDateTime.now());
             log.info("Saving the inventory");
             Inventory savedInventory = inventoryRepository.save(inventory);
             log.info("Inventory with id: {} was saved", savedInventory.getId());
@@ -89,6 +91,7 @@ public class InventoryService {
             inventory.setProductId(inventoryRequest.getProductId());
             inventory.setAmount(inventoryRequest.getAmount());
             inventory.setPrice(inventoryRequest.getPrice());
+            inventory.setUpdatedAt(LocalDateTime.now());
             log.info("Inventory with id: {} was updated.", inventory.getId());
             inventoryRepository.save(inventory);
         }catch (WebClientResponseException.NotFound ex) {
@@ -129,6 +132,7 @@ public class InventoryService {
             inventory.setProductId(inventoryRequest.getProductId());
             inventory.setAmount(inventoryRequest.getAmount());
             inventory.setPrice(inventoryRequest.getPrice());
+            inventory.setUpdatedAt(LocalDateTime.now());
             log.info("Inventory with id: {} was updated.", inventory.getId());
             inventoryRepository.save(inventory);
         }catch (WebClientResponseException.NotFound ex) {
@@ -300,6 +304,10 @@ public class InventoryService {
         }
     }
 
+    public void ReduceStock(){
+        log.info("service reduce stcok was called.");
+    }
+
 //    Helpers
     private Inventory mapFromRequest(InventoryRequest inventoryRequest){
         Inventory  inventory=Inventory
@@ -307,6 +315,7 @@ public class InventoryService {
                 .productId(inventoryRequest.getProductId())
                 .price(inventoryRequest.getPrice())
                 .amount(inventoryRequest.getAmount())
+                .updatedAt(LocalDateTime.now())
                 .build();
         return inventory;
     }
@@ -318,6 +327,8 @@ public class InventoryService {
                 .productId(inventory.getProductId())
                 .price(inventory.getPrice())
                 .amount(inventory.getAmount())
+                .createdAt(inventory.getCreatedAt())
+                .updatedAt(inventory.getUpdatedAt())
                 .build();
         return inventoryResponse;
     }

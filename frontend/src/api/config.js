@@ -5,7 +5,8 @@
  * - Can switch to gateway later
  */
 const SERVICE_URLS = {
-  url:"https://market-place-api-3bbo.onrender.com/api"
+//  url:"https://market-place-api-3bbo.onrender.com/api"
+    url:"http://localhost:8080/api"
 };
 
 export default SERVICE_URLS;

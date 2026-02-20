@@ -5,8 +5,13 @@ export default function CreateOrderCard({
   handleItemChange,
   addProductRow,
   removeProductRow,
-  handleSubmit
+  handleSubmit,
+  inventoryList
 }) {
+  const inventoryMap = inventoryList.reduce((acc, item) => {
+      acc[item.productId] = item.amount;
+      return acc;
+    }, {});
   return (
     <section className="create-order-section">
       <h3>Create New Order</h3>
@@ -33,11 +38,28 @@ export default function CreateOrderCard({
                   required
                 >
                   <option value="">-- Select Product --</option>
-                  {availableForThisRow.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.name}
-                    </option>
-                  ))}
+                  {productList.map((p) => {
+                    const availableQty = inventoryMap[p.id] || 0;
+                    const isOutOfStock = availableQty === 0;
+
+                    return (
+                      <option
+                        key={p.id}
+                        value={p.id}
+                        disabled={isOutOfStock}
+                        style={{
+                          color: isOutOfStock ? "#aaa" : "black"
+                        }}
+                      >
+                        {p.name}{" "}
+                        {isOutOfStock
+                          ? "(0 - Out of Stock)"
+                          : `(${availableQty} available)`
+                        }
+                      </option>
+                    );
+                  })}
+
                 </select>
               </div>
 

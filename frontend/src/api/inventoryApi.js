@@ -37,6 +37,7 @@ export const getInventory = async () => {
 
 
 export const createInventory = async (inventory) => {
+  console.log("creating inventory")
   const token = localStorage.getItem("token");
 
   if (!token) {
@@ -62,7 +63,7 @@ export const createInventory = async (inventory) => {
     return;
   }
 
-  return await response.json();
+  return await response;
 };
 
 
@@ -98,8 +99,8 @@ export const updateInventory = async (inventory, id) => {
     window.location.href = "/login";
     return;
   }
-
-  return await response.json();
+  console.log(response)
+  return await response;
 };
 
 export const deleteInventory = async (id) => {
@@ -125,8 +126,7 @@ export const deleteInventory = async (id) => {
     window.location.href = "/login";
     return;
   }
-
-  return await response.json();
+  return response;
 };
 
 

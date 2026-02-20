@@ -1,9 +1,12 @@
 package org.abhishek.model;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.LocalDateTime;
 
 @Document(value = "Inventory")
 @Data
@@ -23,4 +26,8 @@ public class Inventory {
     private Integer price;
 
     private Integer amount;
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 }

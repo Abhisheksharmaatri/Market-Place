@@ -37,6 +37,12 @@ export default function OrderListItemCard({ order }) {
         <div className="order-total">
           Total: <strong>₹{order.total}</strong>
         </div>
+        <div className="order-total">
+          Create At: <strong>{order.createdAt}</strong>
+        </div>
+        <div className="order-total">
+          User: <strong>{order.userId}</strong>
+        </div>
 
         <Link
           to={`/orders/${order.id}`}
